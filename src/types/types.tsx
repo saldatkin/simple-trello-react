@@ -1,6 +1,6 @@
 export type ColumnType = {
-  key: number;
-  name: string;
+  key: number,
+  name: string,
 }
 
 export type NavbarItemType = {
@@ -8,3 +8,12 @@ export type NavbarItemType = {
   name: string,
   route: string,
 }
+
+export type TaskType = {
+  id: number,
+  name: string,
+  status: string,
+  description: string
+}
+
+

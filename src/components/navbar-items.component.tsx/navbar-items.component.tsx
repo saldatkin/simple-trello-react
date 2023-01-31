@@ -24,7 +24,7 @@ export const NavbarItems = () => {
   };
   
   return(
-    <Container>
+    <Container disableGutters>
       <Toolbar disableGutters>
         {
           navbarItems.map((item: NavbarItemType):JSX.Element => {
