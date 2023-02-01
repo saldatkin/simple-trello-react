@@ -1,8 +1,10 @@
-import { Container, Toolbar } from "@mui/material"
+import { Box, Container, SvgIcon, Toolbar } from "@mui/material"
 import React from "react"
 import { navbarItems } from "../../constants/constants"
 import { NavbarItemType } from "../../types/types"
 import { NavbarItem } from "../navbar-item/navbar-item.component"
+
+import SharpIcon from '../../assets/sharp.svg';
 
 export const NavbarItems = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -24,8 +26,8 @@ export const NavbarItems = () => {
   };
   
   return(
-    <Container disableGutters>
-      <Toolbar disableGutters>
+    <Container >
+      <Toolbar>
         {
           navbarItems.map((item: NavbarItemType):JSX.Element => {
             return(

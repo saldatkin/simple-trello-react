@@ -1,9 +1,12 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material"
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { statuses } from "../../constants/constants";
+import { TasksContext } from "../../contexts/tasks/tasks.context";
 import { IStatusInputProps } from "../../interfaces/interfaces";
+import { TasksContextType } from "../../types/types";
 
-export const StatusInput: FC<IStatusInputProps> = ({ id, status, tasks, updateTasks }: IStatusInputProps ) => {
+export const StatusInput: FC<IStatusInputProps> = ({ id, status }: IStatusInputProps ) => {
+  const { tasks, updateStatus } = useContext(TasksContext) as TasksContextType;
   const [statusState, setStatusState] = useState(status);
 
 
@@ -11,11 +14,11 @@ export const StatusInput: FC<IStatusInputProps> = ({ id, status, tasks, updateTa
     event.preventDefault();
     const newStatus = event.target.value;
     setStatusState(newStatus);
-    updateTasks(tasks, id, newStatus);
+    updateStatus(tasks, id, newStatus);
   }
 
   return(
-    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+    <FormControl sx={{ m: 1, width: '90%' }} size="small">
       <InputLabel id="demo-select-small">status</InputLabel>
       <Select
         labelId="demo-select-small"
@@ -24,10 +27,11 @@ export const StatusInput: FC<IStatusInputProps> = ({ id, status, tasks, updateTa
         defaultValue={status}
         label="status"
         onChange={handleStatusChange}
+        sx={{fontSize:12}}
       >
         {
-          statuses.map((status) => {
-            return <MenuItem value={status}>{status.toUpperCase()}</MenuItem>
+          statuses.map((status: string, index:number) => {
+            return <MenuItem key={index} value={status}>{status.toUpperCase()}</MenuItem>
           })
         }
       </Select>

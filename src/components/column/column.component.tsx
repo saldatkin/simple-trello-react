@@ -1,16 +1,20 @@
 import { Container } from "@mui/system"
+import { useContext } from "react"
+import { TasksContext } from "../../contexts/tasks/tasks.context"
 import { IColumnProps } from "../../interfaces/interfaces"
-import { TaskType } from "../../types/types"
+import { TasksContextType, TaskType } from "../../types/types"
 import { Task } from "../task/task.component"
 
 
+export const Column = ({ name }: IColumnProps) => {  
+  const { tasks } = useContext(TasksContext) as TasksContextType;
 
-
-
-export const Column = ({ name, tasks, updateTasks }: IColumnProps) => {  
+  
   return(
     <Container disableGutters
       sx={{
+      p:1,
+      width:"25%",
       minHeight:'80vh',
       flexGrow:1,
       border:"2px solid black",
@@ -23,7 +27,7 @@ export const Column = ({ name, tasks, updateTasks }: IColumnProps) => {
             .filter((task: TaskType):boolean => task.status === name)
             .map((task: TaskType) => {
               return(
-                <Task updateTasks={updateTasks} tasks={tasks} task={task}/>
+                <Task key={task.id} task={task}/>
               )
             })
         }

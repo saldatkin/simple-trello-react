@@ -16,4 +16,11 @@ export type TaskType = {
   description: string
 }
 
+export type TasksContextType = {
+  tasks: TaskType[],
+  setTasks: (tasks: TaskType[]) => void,
+  removeTask:(tasks: TaskType[], task: TaskType) => void,
+  updateStatus: (tasks: TaskType[], id: number, newStatus: string) => void
+}
+
 
