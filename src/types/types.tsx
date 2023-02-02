@@ -18,9 +18,12 @@ export type TaskType = {
 
 export type TasksContextType = {
   tasks: TaskType[],
+  maxId: number,
   setTasks: (tasks: TaskType[]) => void,
+  addTask:(tasks: TaskType[], task: TaskType) => void,
   removeTask:(tasks: TaskType[], task: TaskType) => void,
-  updateStatus: (tasks: TaskType[], id: number, newStatus: string) => void
+  updateStatus: (tasks: TaskType[], id: number, newStatus: string) => void,
+  setMaxId: (newMaxId: number) => void
 }
 
 
