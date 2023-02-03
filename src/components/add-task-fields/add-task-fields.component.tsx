@@ -1,15 +1,10 @@
-import { Container, TextField, MenuItem, Button } from "@mui/material"
-import { useState } from "react";
+import { TextField, MenuItem } from "@mui/material";
+import { FC } from "react";
 import { statuses } from "../../constants/constants"
+import { IAddTaskFieldsProps } from "../../interfaces/interfaces";
 
-export const AddTaskFields = () => {
-  const [formInput, setFormInput] = useState({
-    id: 90,
-    name:'',
-    description: '',
-    status: ''
-  }); 
-
+export const AddTaskFields:FC<IAddTaskFieldsProps> = (props: IAddTaskFieldsProps) => {
+  const {formInput, setFormInput } = props; 
 
   return(
     <>
@@ -43,6 +38,5 @@ export const AddTaskFields = () => {
         }
       </TextField>
     </>
-        
   )
 }

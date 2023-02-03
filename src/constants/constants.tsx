@@ -30,3 +30,9 @@ export const statuses: string[] = [
   "done"
 ]
 
+export const initialStrings = {
+  name:'',
+  description: '',
+  status: ''
+}
+
