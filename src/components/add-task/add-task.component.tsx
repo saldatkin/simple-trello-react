@@ -11,12 +11,10 @@ export const AddTask = () => {
   const initialFormInput: TaskType = { ...initialStrings, id: 1 + maxId};
   const [formInput, setFormInput] = useState(initialFormInput); 
 
-
   const handleAddTask = () => {
     addTask(tasks, formInput);
     setFormInput(initialFormInput);
   }
-
 
   return(
     <> 

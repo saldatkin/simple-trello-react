@@ -4,7 +4,6 @@ import { TaskType } from "../../types/types";
 import { updateStorage } from "../../utils/utils";
 
 
-
 const initialTasks: ITaskJson = {
   tasks: [],
 }

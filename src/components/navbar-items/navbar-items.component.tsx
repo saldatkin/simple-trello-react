@@ -1,30 +1,10 @@
-import { Box, Container, SvgIcon, Toolbar } from "@mui/material"
-import React from "react"
+import { Container, Toolbar } from "@mui/material"
 import { navbarItems } from "../../constants/constants"
 import { NavbarItemType } from "../../types/types"
 import { NavbarItem } from "../navbar-item/navbar-item.component"
 
-import SharpIcon from '../../assets/sharp.svg';
 
-export const NavbarItems = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-  
+export const NavbarItems = () => {  
   return(
     <Container >
       <Toolbar>
