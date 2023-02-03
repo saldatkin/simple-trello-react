@@ -1,7 +1,9 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, MenuItem, TextField } from "@mui/material"
+import { Button, Dialog, DialogActions, 
+  DialogContent, DialogContentText, DialogTitle } from "@mui/material"
 import { Container } from "@mui/system"
+import CloseIcon from '@mui/icons-material/Close';
 import { useContext, useState } from "react"
-import { statuses } from "../../constants/constants"
+import { initialStrings } from "../../constants/constants"
 import { TasksContext } from "../../contexts/tasks/tasks.context"
 import { IColumnProps } from "../../interfaces/interfaces"
 import { TasksContextType, TaskType } from "../../types/types"
@@ -12,16 +14,13 @@ import { Task } from "../task/task.component"
 export const Column = ({ name }: IColumnProps) => { 
   const { tasks, addTask, maxId } = useContext(TasksContext) as TasksContextType;
   const [open, setOpen] = useState(false);
-  const [formInput, setFormInput] = useState({
-    id: maxId,
-    name:'',
-    description: '',
-    status: ''
-  });
+  const initialFormInput: TaskType = { ...initialStrings, id: maxId};
+  const [formInput, setFormInput] = useState(initialFormInput);
   
 
   const handleAddTask = () => {
     addTask(tasks, formInput);
+    setFormInput(initialFormInput);
     setOpen(false);
   }
 
@@ -38,8 +37,8 @@ export const Column = ({ name }: IColumnProps) => {
     <Container disableGutters
       sx={{
       p:1,
-      width:"25%",
-      minHeight:'80vh',
+      width:{  xs: "100%",sm: "90%", md: "80%", lg: "25%", xl: "25%",},
+      minHeight:{  xs: "40vh",sm: "30vh", md: "70vh", lg: "80vh", xl: "80vh",},
       flexGrow:1,
       border:"2px solid black",
       borderRadius:"8px"
@@ -56,45 +55,37 @@ export const Column = ({ name }: IColumnProps) => {
             })
         }
       </div>
-      <Button type="submit" onClick={handleClickOpen} variant="outlined" size="small">+ Add task</Button>
+      <Button type="submit" onClick={handleClickOpen} variant="outlined" size="small">
+          + Add task
+      </Button>
       <div>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Add task</DialogTitle>
+        <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose}>
+          <DialogTitle>
+            Add task
+            <Button 
+              onClickCapture={handleClose}
+              sx={{ 
+                position:'absolute', 
+                top:4, 
+                right:4,
+                minWidth:48 
+              }}>
+              <CloseIcon sx={{ width:32}} />
+            </Button>
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
               To add task, please fill fields below
             </DialogContentText>
             <Container sx={{ mt:2, display:'flex', flexDirection:'column', gap:3 }}>
-              <TextField 
-                required
-                id="input-name" 
-                multiline 
-                label="Enter name of task"
-                value={formInput.name}
-                onChange={ event => setFormInput({ ...formInput, name: (event.target as HTMLInputElement).value })}/>
-              <TextField 
-                id="input-description" 
-                multiline 
-                label="Enter full description of task" 
-                rows={4}
-                value={formInput.description}
-                onChange={ event => setFormInput({ ...formInput, description: (event.target as HTMLInputElement).value })}/>
-              <TextField
-                id="outlined-select-currency"
-                select
-                label="status"
-                defaultValue={"todo"}
-                helperText="Please select status of task"
-                value={formInput.status}
-                onChange={ event => setFormInput({ ...formInput, status: (event.target as HTMLInputElement).value })}
-              >
-                {
-                  statuses.map((status: string, index:number) => {
-                    return <MenuItem key={index} value={status}>{status.toUpperCase()}</MenuItem>
-                  })
-                }
-              </TextField>
-              <Button type="submit" onClick={handleAddTask} variant="contained" size="large">Add task</Button>
+              <AddTaskFields setFormInput={setFormInput} formInput={formInput}/>
+              <Button 
+                type="submit" 
+                onClick={handleAddTask} 
+                variant="contained" 
+                size="large">
+                  Add task
+              </Button>
             </Container>
           </DialogContent>
           <DialogActions>

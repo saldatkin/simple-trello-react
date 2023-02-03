@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import { TaskType } from "../types/types";
 
 export interface ITaskProps {
@@ -23,7 +23,12 @@ export interface ITasksAction {
   type: string,
   payload: TaskType[]
 }
+
 export interface ITasksProviderProps {
   children: ReactNode;
 }
 
+export interface IAddTaskFieldsProps {
+  formInput: TaskType,
+  setFormInput: Dispatch<SetStateAction<TaskType>>
+}

@@ -3,7 +3,6 @@ import { Router } from './components/router/router.component';
 
 import './App.css';
 
-
 function App() {
   return (
     <>
