@@ -1,4 +1,4 @@
-import { Container, Button } from "@mui/material"
+import { Container, Button, Dialog, DialogContent, DialogTitle } from "@mui/material"
 import { useContext, useState } from "react";
 import { initialStrings } from "../../constants/constants";
 import { TasksContext } from "../../contexts/tasks/tasks.context";
@@ -10,10 +10,24 @@ export const AddTask = () => {
   const { tasks, addTask, maxId } = useContext(TasksContext) as TasksContextType;
   const initialFormInput: TaskType = { ...initialStrings, id: 1 + maxId};
   const [formInput, setFormInput] = useState(initialFormInput); 
+  const [openRequired, setOpenRequired] = useState(false);
+  const [openSuccess, setOpenSuccess] = useState(false);
 
+  const handleCloseRequired = () => {
+    setOpenRequired(false);
+  }
+  const handleCloseSuccess = () => {
+    setOpenSuccess(false);
+  }
+  
   const handleAddTask = () => {
-    addTask(tasks, formInput);
-    setFormInput(initialFormInput);
+    if(formInput.name === "" || formInput.description === "" || formInput.status === ""){
+      setOpenRequired(true);
+    } else {
+      addTask(tasks, formInput);
+      setOpenSuccess(true);
+      setFormInput(initialFormInput);
+    }
   }
 
   return(
@@ -31,6 +45,19 @@ export const AddTask = () => {
             size="large">
               Add task
           </Button>
+          <Dialog onClose={handleCloseRequired} open={openRequired}>
+            <DialogTitle>
+              Your task has empty fields
+            </DialogTitle>
+            <DialogContent>
+              Please, fill all the fields.
+            </DialogContent>
+          </Dialog>
+          <Dialog onClose={handleCloseSuccess} open={openSuccess}>
+            <DialogTitle>
+              <strong>Your task was successfully added!</strong>
+            </DialogTitle>
+          </Dialog>
         </Container>
       </form>
     </>

@@ -14,14 +14,22 @@ import { Task } from "../task/task.component"
 export const Column = ({ name }: IColumnProps) => { 
   const { tasks, addTask, maxId } = useContext(TasksContext) as TasksContextType;
   const [open, setOpen] = useState(false);
+  const [openRequired, setOpenRequired] = useState(false);
   const initialFormInput: TaskType = { ...initialStrings, id: maxId};
   const [formInput, setFormInput] = useState(initialFormInput);
   
+  const handleCloseRequired = () => {
+    setOpenRequired(false);
+  }
 
   const handleAddTask = () => {
-    addTask(tasks, formInput);
-    setFormInput(initialFormInput);
-    setOpen(false);
+    if(formInput.name === "" || formInput.description === "" || formInput.status === ""){
+      setOpenRequired(true)
+    } else {
+      addTask(tasks, formInput);
+      setFormInput(initialFormInput);
+      setOpen(false);
+    }
   }
 
   const handleClickOpen = () => {
@@ -38,7 +46,7 @@ export const Column = ({ name }: IColumnProps) => {
       sx={{
         p:1,
         width:{  xs: "100%",sm: "90%", md: "80%", lg: "25%", xl: "25%",},
-        minHeight:{  xs: "40vh",sm: "30vh", md: "70vh", lg: "80vh", xl: "80vh",},
+        minHeight:{  xs: "30vh",sm: "30vh", md: "70vh", lg: "80vh", xl: "80vh",},
         flexGrow:1,
         border:"2px solid black",
         borderRadius:"8px"
@@ -93,6 +101,14 @@ export const Column = ({ name }: IColumnProps) => {
           </DialogActions>
         </Dialog>
       </div>
+      <Dialog onClose={handleCloseRequired} open={openRequired}>
+        <DialogTitle>
+          Your task has empty fields
+        </DialogTitle>
+        <DialogContent>
+          Please, fill all the fields.
+        </DialogContent>
+      </Dialog>
     </Container>
   )
 }

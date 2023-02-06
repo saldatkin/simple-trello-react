@@ -16,6 +16,7 @@ export const AddTaskFields:FC<IAddTaskFieldsProps> = (props: IAddTaskFieldsProps
         value={formInput.name}
         onChange={ event => setFormInput({ ...formInput, name: (event.target as HTMLInputElement).value })}/>
       <TextField 
+        required
         id="input-description" 
         multiline 
         label="Enter full description of task" 
@@ -23,6 +24,7 @@ export const AddTaskFields:FC<IAddTaskFieldsProps> = (props: IAddTaskFieldsProps
         value={formInput.description}
         onChange={ event => setFormInput({ ...formInput, description: (event.target as HTMLInputElement).value })}/>
       <TextField
+        required
         id="outlined-select-currency"
         select
         label="status"
