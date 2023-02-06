@@ -1,6 +1,6 @@
 import { Container } from "@mui/system";
 import { statuses } from "../../constants/constants";
-import { Column } from "../column/column.component";
+import { Column } from "../../components/column/column.component";
 
 
 export const Columns = () => {

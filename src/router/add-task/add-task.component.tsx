@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { initialStrings } from "../../constants/constants";
 import { TasksContext } from "../../contexts/tasks/tasks.context";
 import { TasksContextType, TaskType } from "../../types/types";
-import { AddTaskFields } from "../add-task-fields/add-task-fields.component";
+import { AddTaskFields } from "../../components/add-task-fields/add-task-fields.component";
 
 
 export const AddTask = () => {

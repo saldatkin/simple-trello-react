@@ -1,9 +1,9 @@
 import Container from '@mui/material/Container';
 import { Routes, Route } from 'react-router-dom';
 
-import { AddTask } from '../add-task/add-task.component';
-import { Columns } from '../columns/columns.component';
-import { Home } from '../home/home.component';
+import { AddTask } from './add-task/add-task.component';
+import { Columns } from './columns/columns.component';
+import { Home } from './home/home.component';
 
 
 export const Router = () => {

@@ -33,7 +33,9 @@ export const Task: FC<ITaskProps> = ({ task }: ITaskProps) => {
         onMouseOver={() => setIsHovered(true)} 
         onMouseOut={() => setIsHovered(false)} 
         className="task__description">
-        { isHovered ? description : description.slice(0, 20).trim() }
+        { isHovered || description.length < 20 
+                          ? description 
+                          : description.slice(0, 20).trim().concat('...') }
       </p>
       <Button 
           onClickCapture={handleRemoveTask}
