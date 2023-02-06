@@ -8,7 +8,7 @@ import { AddTaskFields } from "../../components/add-task-fields/add-task-fields.
 
 export const AddTask = () => {
   const { tasks, addTask, maxId } = useContext(TasksContext) as TasksContextType;
-  const initialFormInput: TaskType = { ...initialStrings, id: 1 + maxId};
+  const initialFormInput: TaskType = { ...initialStrings, id: maxId};
   const [formInput, setFormInput] = useState(initialFormInput); 
   const [openRequired, setOpenRequired] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
@@ -21,7 +21,8 @@ export const AddTask = () => {
   }
   
   const handleAddTask = () => {
-    if(formInput.name === "" || formInput.description === "" || formInput.status === ""){
+    const isAnyFieldEmpty = formInput.name === "" || formInput.description === "" || formInput.status === "";
+    if(isAnyFieldEmpty){
       setOpenRequired(true);
     } else {
       addTask(tasks, formInput);
@@ -29,6 +30,7 @@ export const AddTask = () => {
       setFormInput(initialFormInput);
     }
   }
+
 
   return(
     <> 

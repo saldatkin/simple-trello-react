@@ -37,7 +37,6 @@ export const TasksProvider: FC<ITasksProviderProps> = ({children}) => {
   const addTask = (tasks: TaskType[], task:TaskType): void => {
     setMaxId(maxId + 1);
     tasks.push({...task, id:maxId});
-    console.log(tasks);
     
     updateStorage("tasks", tasks);
     updateStorage("maxId", maxId);

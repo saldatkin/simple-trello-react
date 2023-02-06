@@ -23,7 +23,9 @@ export const Column = ({ name }: IColumnProps) => {
   }
 
   const handleAddTask = () => {
-    if(formInput.name === "" || formInput.description === "" || formInput.status === ""){
+    const isAnyFieldEmpty = formInput.name === "" || formInput.description === "" || formInput.status === "";
+    
+    if(isAnyFieldEmpty){
       setOpenRequired(true)
     } else {
       addTask(tasks, formInput);
