@@ -61,6 +61,7 @@ export const Column = ({ name }: IColumnProps) => {
                 <Task key={task.id} task={task}/>
               )
             })
+            .reverse()
         }
       </div>
       <Button type="submit" onClick={handleClickOpen} variant="outlined" size="small">
