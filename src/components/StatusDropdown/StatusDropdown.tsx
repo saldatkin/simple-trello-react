@@ -9,24 +9,24 @@ import { TasksContextType, TaskType } from "../../types/types";
 import { updateStorage } from "../../utils/utils";
 
 export const StatusDropdown: FC<IStatusDropdownProps> = ({ id, status }: IStatusDropdownProps ) => {
-  //const { tasks, updateStatus } = useContext(TasksContext) as TasksContextType;
+  const { tasks, updateStatus, setTasks } = useContext(TasksContext) as TasksContextType;
   const [statusState, setStatusState] = useState<string>(status);
 
-  const queryClient = useQueryClient();
+  //const queryClient = useQueryClient();
 
 
   const handleStatusChange = (event: SelectChangeEvent) => {
     event.preventDefault();
     const newStatus = event.target.value;
     setStatusState(newStatus);
-    //updateStatus(tasks, id, newStatus);
-    let tasks = queryClient.getQueryData(['tasks']) as TaskType[];
-    const changedTask = tasks.find((task) => task.id === id);
-    changedTask!.status = newStatus;
+    updateStatus(tasks, id, newStatus);
+    //let tasks = queryClient.getQueryData(['tasks']) as TaskType[];
+    //const changedTask = tasks.find((task) => task.id === id);
+    //changedTask!.status = newStatus;
 
-    queryClient.setQueryData(['tasks'], [...tasks.filter((task: TaskType) => task.id !== id), changedTask]);
-    //updateStorage("tasks", tasks);
-    //setTasks(tasks);
+    //queryClient.setQueryData(['tasks'], [...tasks.filter((task: TaskType) => task.id !== id), changedTask]);
+    // updateStorage("tasks", tasks);
+    // setTasks(tasks);
   }
 
   return(

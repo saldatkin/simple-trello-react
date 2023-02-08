@@ -7,19 +7,25 @@ import {
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import './App.css';
+import { useEffect } from 'react';
 
 function App() {
-  const queryClient = new QueryClient();
+  // const queryClient = new QueryClient();
 
-  queryClient.setQueryData(['tasks'], []);
-  queryClient.setQueryData(['maxId'], 1);
+
+  // queryClient.setQueryData(['tasks'], []);
+  // queryClient.setQueryData(['maxId'], 1);
+  
+//   <QueryClientProvider client={queryClient}>
+//   <Navbar/>
+//   <Router/>
+//   <ReactQueryDevtools initialIsOpen={false} />
+// </QueryClientProvider>
+
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <Navbar/>
-        <Router/>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      <Navbar/>
+      <Router/>
     </>
   )
 }

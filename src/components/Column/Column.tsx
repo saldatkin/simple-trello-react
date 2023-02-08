@@ -14,13 +14,13 @@ import { Task } from "../Task/Task";
 
 
 export const Column = ({ name }: IColumnProps) => { 
-  //const { tasks, addTask, maxId } = useContext(TasksContext) as TasksContextType;
+  const { tasks, addTask, maxId } = useContext(TasksContext) as TasksContextType;
   const [open, setOpen] = useState<boolean>(false);
 
-  const queryClient = useQueryClient();
+  //const queryClient = useQueryClient();
 
   const [openRequired, setOpenRequired] = useState<boolean>(false);
-  const [formInput, setFormInput] = useState<TaskType>({ ...INITIAL_STRINGS, id: queryClient.getQueryData(['maxId'])!});
+  const [formInput, setFormInput] = useState<TaskType>({ ...INITIAL_STRINGS, id: /*queryClient.getQueryData(['*/maxId/*'])!*/});
 
   
   
@@ -34,17 +34,17 @@ export const Column = ({ name }: IColumnProps) => {
     if(isAnyFieldEmpty){
       setOpenRequired(true)
     } else {
-      const oldTasks = queryClient.getQueryData(['tasks']) as TaskType[];
-      const oldMaxId = queryClient.getQueryData(['maxId']) as number || 0;
+      // const oldTasks = queryClient.getQueryData(['tasks']) as TaskType[];
+      // const oldMaxId = queryClient.getQueryData(['maxId']) as number || 0;
 
-      if(oldTasks.length){
-        queryClient.setQueryData(['tasks'], [...oldTasks, formInput]);
-      } else{
-        queryClient.setQueryData(['tasks'], [formInput])
-      }
-      //addTask(tasks, formInput);
-      queryClient.setQueryData(['maxId'], oldMaxId + 1);
-      setFormInput({ ...INITIAL_STRINGS, id: queryClient.getQueryData(["maxId"])! });
+      // if(oldTasks.length){
+      //   queryClient.setQueryData(['tasks'], [...oldTasks, formInput]);
+      // } else{
+      //   queryClient.setQueryData(['tasks'], [formInput])
+      // }
+      addTask(tasks, formInput);
+      //queryClient.setQueryData(['maxId'], oldMaxId + 1);
+      setFormInput({ ...INITIAL_STRINGS, id: /* queryClient.getQueryData(["*/maxId/*"])!*/ });
       setOpen(false);
     }
   }
@@ -57,7 +57,7 @@ export const Column = ({ name }: IColumnProps) => {
     setOpen(false);
   };
   
-  let tasks = queryClient.getQueryData(["tasks"]) as TaskType[];
+  //let tasks = queryClient.getQueryData(["tasks"]) as TaskType[];
 
   
   return(
