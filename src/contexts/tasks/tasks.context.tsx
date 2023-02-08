@@ -13,8 +13,8 @@ export const TasksContext = createContext({});
 
 
 export const TasksProvider: FC<ITasksProviderProps> = ({children}) => {
-  const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem("tasks")!) || initialTasks.tasks);
-  const [maxId, setMaxId] = useState(JSON.parse(localStorage.getItem("maxId")!) || 1);
+  const [tasks, setTasks] = useState<TaskType[]>(JSON.parse(localStorage.getItem("tasks")!) || initialTasks.tasks);
+  const [maxId, setMaxId] = useState<number>(JSON.parse(localStorage.getItem("maxId")!) || 1);
 
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export const TasksProvider: FC<ITasksProviderProps> = ({children}) => {
   }
 
   const removeTask = (tasks: TaskType[], task:TaskType): void => {
-    tasks = tasks.filter(t => t !== task);
+    tasks = tasks.filter(t => t.id !== task.id);
     updateStorage("tasks", tasks);
     setTasks(tasks);
   }

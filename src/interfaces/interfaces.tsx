@@ -5,7 +5,7 @@ export interface ITaskProps {
   task: TaskType,
 }
 
-export interface IStatusInputProps {
+export interface IStatusDropdownProps {
   id:number,
   status: string,
 }

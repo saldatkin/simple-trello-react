@@ -1,5 +1,5 @@
 import AppBar from '@mui/material/AppBar';
-import { NavbarItems } from '../navbar-items/navbar-items.component';
+import { NavbarItems } from './NavbarItems';
 
 
 function Navbar() {

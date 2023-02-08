@@ -2,7 +2,7 @@ import { Box, Button } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import { FC, useContext, useState } from "react"
 import { ITaskProps } from "../../interfaces/interfaces"
-import { StatusInput } from "../status-input/status-input.component";
+import { StatusDropdown } from "../StatusDropdown/StatusDropdown";
 import { TasksContextType } from "../../types/types";
 import { TasksContext } from "../../contexts/tasks/tasks.context";
 
@@ -10,7 +10,7 @@ import { TasksContext } from "../../contexts/tasks/tasks.context";
 
 export const Task: FC<ITaskProps> = ({ task }: ITaskProps) => {
   const { tasks, removeTask } = useContext(TasksContext) as TasksContextType;
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const { name, description, status, id } = task;
 
@@ -50,7 +50,7 @@ export const Task: FC<ITaskProps> = ({ task }: ITaskProps) => {
         <CloseIcon sx={{ width:16}} />
       </Button>
       <Box sx={{ width: '100%'}}>
-        <StatusInput id={id} status={status}/>
+        <StatusDropdown id={id} status={status}/>
       </Box>
     </Box>
   )

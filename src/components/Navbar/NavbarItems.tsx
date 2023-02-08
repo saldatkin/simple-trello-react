@@ -1,15 +1,15 @@
 import { Container, Toolbar } from "@mui/material"
-import { navbarItems } from "../../constants/constants"
+import { NAVBAR_ITEMS } from "../../constants/constants"
 import { NavbarItemType } from "../../types/types"
-import { NavbarItem } from "../navbar-item/navbar-item.component"
+import { NavbarItem } from "../../components/Navbar/NavbarItem"
 
 
 export const NavbarItems = () => {  
   return(
-    <Container >
+    <Container disableGutters>
       <Toolbar>
         {
-          navbarItems.map((item: NavbarItemType):JSX.Element => {
+          NAVBAR_ITEMS.map((item: NavbarItemType):JSX.Element => {
             return(
               <NavbarItem key={item.id} item={item} />
             )

@@ -1,6 +1,6 @@
 import { Container } from "@mui/system";
-import { statuses } from "../../constants/constants";
-import { Column } from "../../components/column/column.component";
+import { STATUSES } from "../../constants/constants";
+import { Column } from "../../components/Column/Column";
 
 
 export const Columns = () => {
@@ -11,7 +11,7 @@ export const Columns = () => {
         <Container disableGutters 
           sx={{ display: 'flex', gap:1, flexDirection: {  xs: "column",sm: "column", md: "row", lg: "row", xl: "row",} }}>
             {
-              statuses.map((status: string, index: number) => {
+              STATUSES.map((status: string, index: number) => {
                 return <Column key={index} name={status}/>
               })
             }

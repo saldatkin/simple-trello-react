@@ -1,10 +1,10 @@
 import { TextField, MenuItem } from "@mui/material";
 import { FC } from "react";
-import { statuses } from "../../constants/constants"
+import { STATUSES } from "../../constants/constants"
 import { IAddTaskFieldsProps } from "../../interfaces/interfaces";
 
-export const AddTaskFields:FC<IAddTaskFieldsProps> = (props: IAddTaskFieldsProps) => {
-  const {formInput, setFormInput } = props; 
+export const AddTaskFields:FC<IAddTaskFieldsProps> = ({formInput, setFormInput}) => {
+  //const {formInput, setFormInput } = props; 
 
   return(
     <>
@@ -34,7 +34,7 @@ export const AddTaskFields:FC<IAddTaskFieldsProps> = (props: IAddTaskFieldsProps
         onChange={ event => setFormInput({ ...formInput, status: (event.target as HTMLInputElement).value })}
       >
         {
-          statuses.map((status: string, index:number) => {
+          STATUSES.map((status: string, index:number) => {
             return <MenuItem key={index} value={status}>{status.toUpperCase()}</MenuItem>
           })
         }
