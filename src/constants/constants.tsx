@@ -1,11 +1,6 @@
 import { NavbarItemType } from "../types/types";
 
-export const navbarItems: NavbarItemType[] = [
-  {
-    id: 1,
-    name: "Logo",
-    route:'',
-  },
+export const NAVBAR_ITEMS: NavbarItemType[] = [
   {
     id: 2,
     name: "Add task",
@@ -16,21 +11,16 @@ export const navbarItems: NavbarItemType[] = [
     name: "Tasks",
     route:'/tasks',
   },
-  {
-    id: 4,
-    name: "Home",
-    route:'/home',
-  },
 ];
 
-export const statuses: string[] = [
+export const STATUSES: string[] = [
   "todo",
   "in progress",
   "code review",
   "done"
 ]
 
-export const initialStrings = {
+export const INITIAL_STRINGS = {
   name:'',
   description: '',
   status: ''

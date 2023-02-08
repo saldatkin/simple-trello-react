@@ -1,14 +1,14 @@
 import { Container, Button, Dialog, DialogContent, DialogTitle } from "@mui/material"
 import { useContext, useState } from "react";
-import { initialStrings } from "../../constants/constants";
+import { INITIAL_STRINGS } from "../../constants/constants";
 import { TasksContext } from "../../contexts/tasks/tasks.context";
 import { TasksContextType, TaskType } from "../../types/types";
-import { AddTaskFields } from "../../components/add-task-fields/add-task-fields.component";
+import { AddTaskForm } from "../../components/AddTaskForm/AddTaskForm";
 
 
 export const AddTask = () => {
   const { tasks, addTask, maxId } = useContext(TasksContext) as TasksContextType;
-  const initialFormInput: TaskType = { ...initialStrings, id: maxId};
+  const initialFormInput: TaskType = { ...INITIAL_STRINGS, id: maxId};
   const [formInput, setFormInput] = useState(initialFormInput); 
   const [openRequired, setOpenRequired] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
@@ -39,7 +39,7 @@ export const AddTask = () => {
       </h1>
       <form>
         <Container disableGutters sx={{ mt:2, display:'flex', flexDirection:'column', gap:3 }}>
-          <AddTaskFields setFormInput={setFormInput} formInput={formInput}/>
+          <AddTaskForm setFormInput={setFormInput} formInput={formInput}/>
           <Button 
             type="submit" 
             onClick={handleAddTask} 

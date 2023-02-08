@@ -1,13 +1,25 @@
-import Navbar from './components/navbar/navbar.component';
-import { Router } from './router/router.component';
+import Navbar from './components/Navbar/Navbar';
+import { Router } from './router/Router';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import './App.css';
 
 function App() {
+  const queryClient = new QueryClient();
+
+  queryClient.setQueryData(['tasks'], []);
+  queryClient.setQueryData(['maxId'], 1);
   return (
     <>
-      <Navbar/>
-      <Router/>
+      <QueryClientProvider client={queryClient}>
+        <Navbar/>
+        <Router/>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </>
   )
 }

@@ -3,33 +3,48 @@ import { Button, Dialog, DialogActions,
 import { Container } from "@mui/system"
 import CloseIcon from '@mui/icons-material/Close';
 import { useContext, useState } from "react"
-import { initialStrings } from "../../constants/constants"
+import { INITIAL_STRINGS } from "../../constants/constants"
 import { TasksContext } from "../../contexts/tasks/tasks.context"
 import { IColumnProps } from "../../interfaces/interfaces"
 import { TasksContextType, TaskType } from "../../types/types"
-import { AddTaskFields } from "../add-task-fields/add-task-fields.component"
-import { Task } from "../task/task.component"
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { isFormIncomplete } from "../../utils/utils";
+import { AddTaskForm } from "../AddTaskForm/AddTaskForm";
+import { Task } from "../Task/Task";
 
 
 export const Column = ({ name }: IColumnProps) => { 
-  const { tasks, addTask, maxId } = useContext(TasksContext) as TasksContextType;
-  const [open, setOpen] = useState(false);
-  const [openRequired, setOpenRequired] = useState(false);
-  const initialFormInput: TaskType = { ...initialStrings, id: maxId};
-  const [formInput, setFormInput] = useState(initialFormInput);
+  //const { tasks, addTask, maxId } = useContext(TasksContext) as TasksContextType;
+  const [open, setOpen] = useState<boolean>(false);
+
+  const queryClient = useQueryClient();
+
+  const [openRequired, setOpenRequired] = useState<boolean>(false);
+  const [formInput, setFormInput] = useState<TaskType>({ ...INITIAL_STRINGS, id: queryClient.getQueryData(['maxId'])!});
+
+  
   
   const handleCloseRequired = () => {
     setOpenRequired(false);
   }
 
   const handleAddTask = () => {
-    const isAnyFieldEmpty = formInput.name === "" || formInput.description === "" || formInput.status === "";
+    const isAnyFieldEmpty = isFormIncomplete(formInput);
     
     if(isAnyFieldEmpty){
       setOpenRequired(true)
     } else {
-      addTask(tasks, formInput);
-      setFormInput(initialFormInput);
+      const oldTasks = queryClient.getQueryData(['tasks']) as TaskType[];
+      const oldMaxId = queryClient.getQueryData(['maxId']) as number || 0;
+
+      if(oldTasks.length){
+        queryClient.setQueryData(['tasks'], [...oldTasks, formInput]);
+      } else{
+        queryClient.setQueryData(['tasks'], [formInput])
+      }
+      //addTask(tasks, formInput);
+      queryClient.setQueryData(['maxId'], oldMaxId + 1);
+      setFormInput({ ...INITIAL_STRINGS, id: queryClient.getQueryData(["maxId"])! });
       setOpen(false);
     }
   }
@@ -41,6 +56,8 @@ export const Column = ({ name }: IColumnProps) => {
   const handleClose = () => {
     setOpen(false);
   };
+  
+  let tasks = queryClient.getQueryData(["tasks"]) as TaskType[];
 
   
   return(
@@ -89,7 +106,7 @@ export const Column = ({ name }: IColumnProps) => {
               To add task, please fill fields below
             </DialogContentText>
             <Container sx={{ mt:2, display:'flex', flexDirection:'column', gap:3 }}>
-              <AddTaskFields setFormInput={setFormInput} formInput={formInput}/>
+              <AddTaskForm setFormInput={setFormInput} formInput={formInput}/>
               <Button 
                 type="submit" 
                 onClick={handleAddTask} 
