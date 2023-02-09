@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { INITIAL_STRINGS } from "../../constants/constants";
 import { TasksContext } from "../../contexts/tasks/tasks.context";
 import { TasksContextType, TaskType } from "../../types/types";
-import { AddTaskFields } from "../../components/AddTaskFrom/AddTaskForm";
+import { AddTaskFields } from "../../components/AddTaskForm/AddTaskForm";
 import { useQueryClient } from "@tanstack/react-query";
 import { isFormIncomplete } from "../../utils/utils";
 

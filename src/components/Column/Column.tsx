@@ -7,7 +7,7 @@ import { INITIAL_STRINGS } from "../../constants/constants"
 import { TasksContext } from "../../contexts/tasks/tasks.context"
 import { IColumnProps } from "../../interfaces/interfaces"
 import { TasksContextType, TaskType } from "../../types/types"
-import { AddTaskFields } from "../AddTaskFrom/AddTaskForm"
+import { AddTaskFields } from "../AddTaskForm/AddTaskForm"
 import { Task } from "../Task/Task"
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { isFormIncomplete } from "../../utils/utils";
