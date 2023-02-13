@@ -1,5 +1,5 @@
 import { Button } from "@mui/material"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { INITIAL_STRINGS } from "../../constants/constants"
 import { TasksContext } from "../../contexts/tasks/tasks.context"
 import { IColumnProps } from "../../interfaces/interfaces"
@@ -14,13 +14,10 @@ import { ResponsiveContainer } from "../ResponsiveContainer/ResponsiveContainer"
 export const Column = ({ name }: IColumnProps) => { 
   const { tasks, addTask, maxId } = useContext(TasksContext) as TasksContextType;
   const [open, setOpen] = useState<boolean>(false);
+  const [isMorePressed, setisMorePressed] = useState<boolean>(false);
   const [openRequired, setOpenRequired] = useState<boolean>(false);
-  const [formInput, setFormInput] = useState<TaskType>({ ...INITIAL_STRINGS, id: /*queryClient.getQueryData(['*/maxId/*'])!*/});
+  const [formInput, setFormInput] = useState<TaskType>({ ...INITIAL_STRINGS, id: maxId });
 
-  
-  const handleCloseRequired = () => {
-    setOpenRequired(false);
-  }
 
   const handleAddTask = () => {
     const isAnyFieldEmpty = isFormIncomplete(formInput);
@@ -34,38 +31,56 @@ export const Column = ({ name }: IColumnProps) => {
     }
   }
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const handleCloseRequired = () => { setOpenRequired(false) }
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClickMoreTasks = () => { setisMorePressed(!isMorePressed) }
+
+  const handleClickOpen = () => { setOpen(true) };
+
+  const handleClose = () => { setOpen(false) };
+
+  const filteredTasks = tasks
+    .filter((task: TaskType):boolean => task.status === name)
+    .map((task: TaskType) => {
+      return(
+        <Task key={task.id} task={task}/>
+      )
+    })
+    .reverse()
+
+  useEffect(() => {
+    if(window.innerWidth > 900){
+      const root = document.getElementById('root') as HTMLElement;
+      root.scrollIntoView({ behavior: 'smooth', block: "end" });
+    }
+  }, [isMorePressed])
   
-  
+  useEffect(() => {
+    const root = document.getElementById('root') as HTMLElement;
+    root.scrollIntoView({ behavior: 'smooth', block: "start" });
+  }, [])
+
+
   return(
     <ResponsiveContainer>
       <h3 className="title">{name}</h3>
       <div>
-        {
-          tasks
-            .filter((task: TaskType):boolean => task.status === name)
-            .map((task: TaskType) => {
-              return(
-                <Task key={task.id} task={task}/>
-              )
-            })
-            .reverse()
-        }
+        { isMorePressed ? filteredTasks : filteredTasks.slice(0, 7) }
       </div>
       <Button type="submit" onClick={handleClickOpen} variant="outlined" size="small">
-          + Add task
+        + Add task
       </Button>
+      {
+        filteredTasks.length > 7 && 
+        <Button type="submit" onClick={handleClickMoreTasks} variant="outlined" size="small">
+          { isMorePressed ? 'show less' : 'show all tasks' }
+        </Button>
+      }
       <div>
         <ModalAddTask open={open} handleClose={handleClose} 
           handleAddTask={handleAddTask} 
           setFormInput={setFormInput} 
-          formInput={formInput}/>
+          formInput={{...formInput, status: name}}/>
       </div>
       <ModalMessage open={openRequired} handleClose={handleCloseRequired}
         title={'Your task has empty fields'}

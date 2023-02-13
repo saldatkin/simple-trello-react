@@ -13,10 +13,7 @@ export const Task: FC<ITaskProps> = ({ task }: ITaskProps) => {
 
   const { name, description, status, id } = task;
 
-  const handleRemoveTask = () => {
-    removeTask(tasks, task);
-  }
-
+  const handleRemoveTask = () => { removeTask(tasks, task) }
 
   return(
     <Box className="task" 
@@ -28,8 +25,7 @@ export const Task: FC<ITaskProps> = ({ task }: ITaskProps) => {
             borderRadius: 2,
          }}>
       <h4>{name.toLocaleUpperCase()}</h4>
-      <p
-        className="task__description">
+      <p className="task__description">
         { description }
       </p>
       <Button 
