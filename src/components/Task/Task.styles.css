@@ -1,0 +1,12 @@
+.task__description {
+  width: 10rem;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: overflow 2s width 2s;
+}
+
+.task__description:hover {
+  overflow: visible; 
+  white-space: normal; 
+  width: auto;
+}

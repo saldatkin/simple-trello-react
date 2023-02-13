@@ -4,6 +4,8 @@ import { INITIAL_STRINGS } from "../../constants/constants";
 import { TasksContext } from "../../contexts/tasks/tasks.context";
 import { TasksContextType, TaskType } from "../../types/types";
 import { AddTaskForm } from "../../components/AddTaskForm/AddTaskForm";
+import { ModalMessage } from "../../components/ModalMessage/ModalMessage";
+
 
 
 export const AddTask = () => {
@@ -47,19 +49,15 @@ export const AddTask = () => {
             size="large">
               Add task
           </Button>
-          <Dialog onClose={handleCloseRequired} open={openRequired}>
-            <DialogTitle>
-              Your task has empty fields
-            </DialogTitle>
-            <DialogContent>
-              Please, fill all the fields.
-            </DialogContent>
-          </Dialog>
-          <Dialog onClose={handleCloseSuccess} open={openSuccess}>
-            <DialogTitle>
-              <strong>Your task was successfully added!</strong>
-            </DialogTitle>
-          </Dialog>
+          <ModalMessage 
+            open={openRequired}
+            handleClose={handleCloseRequired}
+            title={'Your task has empty fields'}
+            description={'Please, fill all the fields.'} />
+          <ModalMessage 
+            open={openSuccess}
+            handleClose={handleCloseSuccess}
+            title={'Your task was successfully added!'}/>
         </Container>
       </form>
     </>

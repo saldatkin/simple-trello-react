@@ -6,11 +6,10 @@ import { StatusDropdown } from "../StatusDropdown/StatusDropdown";
 import { TasksContextType } from "../../types/types";
 import { TasksContext } from "../../contexts/tasks/tasks.context";
 
-
+import './Task.styles.css'
 
 export const Task: FC<ITaskProps> = ({ task }: ITaskProps) => {
   const { tasks, removeTask } = useContext(TasksContext) as TasksContextType;
-  const [isHovered, setIsHovered] = useState(false);
 
   const { name, description, status, id } = task;
 
@@ -29,13 +28,9 @@ export const Task: FC<ITaskProps> = ({ task }: ITaskProps) => {
             borderRadius: 2,
          }}>
       <h4>{name.toLocaleUpperCase()}</h4>
-      <p 
-        onMouseOver={() => setIsHovered(true)} 
-        onMouseOut={() => setIsHovered(false)} 
+      <p
         className="task__description">
-        { isHovered || description.length < 20 
-                          ? description 
-                          : description.slice(0, 20).trim().concat('...') }
+        { description }
       </p>
       <Button 
           onClickCapture={handleRemoveTask}

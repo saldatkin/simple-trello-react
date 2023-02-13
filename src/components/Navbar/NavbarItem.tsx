@@ -13,6 +13,5 @@ export const NavbarItem = ({ item }: { item: NavbarItemType}) => {
         {item.name}
       </Typography>
     </Link>
-    
   )
 }

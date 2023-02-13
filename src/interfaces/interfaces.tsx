@@ -32,3 +32,17 @@ export interface IAddTaskFieldsProps {
   formInput: TaskType,
   setFormInput: Dispatch<SetStateAction<TaskType>>
 }
+
+export interface IModalMessageProps {
+  title: string,
+  description?: string,
+  open:boolean,
+  handleClose: () => void
+}
+export interface IModalAddTaskProps {
+  open:boolean,
+  handleClose: () => void,
+  handleAddTask: () => void,
+  setFormInput: Dispatch<React.SetStateAction<TaskType>>,
+  formInput: TaskType
+}

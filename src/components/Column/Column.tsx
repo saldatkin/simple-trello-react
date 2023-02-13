@@ -1,7 +1,5 @@
-import { Button, Dialog, DialogActions, 
-  DialogContent, DialogContentText, DialogTitle } from "@mui/material"
+import { Button } from "@mui/material"
 import { Container } from "@mui/system"
-import CloseIcon from '@mui/icons-material/Close';
 import { useContext, useState } from "react"
 import { INITIAL_STRINGS } from "../../constants/constants"
 import { TasksContext } from "../../contexts/tasks/tasks.context"
@@ -11,18 +9,17 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { isFormIncomplete } from "../../utils/utils";
 import { AddTaskForm } from "../AddTaskForm/AddTaskForm";
 import { Task } from "../Task/Task";
+import { ModalMessage } from "../ModalMessage/ModalMessage";
+import { ModalAddTask } from "../ModalAddTask/ModalAddTask";
 
 
 export const Column = ({ name }: IColumnProps) => { 
   const { tasks, addTask, maxId } = useContext(TasksContext) as TasksContextType;
   const [open, setOpen] = useState<boolean>(false);
-
   //const queryClient = useQueryClient();
-
   const [openRequired, setOpenRequired] = useState<boolean>(false);
   const [formInput, setFormInput] = useState<TaskType>({ ...INITIAL_STRINGS, id: /*queryClient.getQueryData(['*/maxId/*'])!*/});
 
-  
   
   const handleCloseRequired = () => {
     setOpenRequired(false);
@@ -36,7 +33,6 @@ export const Column = ({ name }: IColumnProps) => {
     } else {
       // const oldTasks = queryClient.getQueryData(['tasks']) as TaskType[];
       // const oldMaxId = queryClient.getQueryData(['maxId']) as number || 0;
-
       // if(oldTasks.length){
       //   queryClient.setQueryData(['tasks'], [...oldTasks, formInput]);
       // } else{
@@ -59,7 +55,6 @@ export const Column = ({ name }: IColumnProps) => {
   
   //let tasks = queryClient.getQueryData(["tasks"]) as TaskType[];
 
-  
   return(
     <Container disableGutters
       sx={{
@@ -87,48 +82,18 @@ export const Column = ({ name }: IColumnProps) => {
           + Add task
       </Button>
       <div>
-        <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose}>
-          <DialogTitle>
-            Add task
-            <Button 
-              onClickCapture={handleClose}
-              sx={{ 
-                position:'absolute', 
-                top:4, 
-                right:4,
-                minWidth:48 
-              }}>
-              <CloseIcon sx={{ width:32}} />
-            </Button>
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              To add task, please fill fields below
-            </DialogContentText>
-            <Container sx={{ mt:2, display:'flex', flexDirection:'column', gap:3 }}>
-              <AddTaskForm setFormInput={setFormInput} formInput={formInput}/>
-              <Button 
-                type="submit" 
-                onClick={handleAddTask} 
-                variant="contained" 
-                size="large">
-                  Add task
-              </Button>
-            </Container>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-          </DialogActions>
-        </Dialog>
+        <ModalAddTask 
+          open={open} 
+          handleClose={handleClose} 
+          handleAddTask={handleAddTask} 
+          setFormInput={setFormInput} 
+          formInput={formInput}/>
       </div>
-      <Dialog onClose={handleCloseRequired} open={openRequired}>
-        <DialogTitle>
-          Your task has empty fields
-        </DialogTitle>
-        <DialogContent>
-          Please, fill all the fields.
-        </DialogContent>
-      </Dialog>
+      <ModalMessage 
+        open={openRequired}
+        handleClose={handleCloseRequired}
+        title={'Your task has empty fields'}
+        description={'Please, fill all the fields.'} />
     </Container>
   )
 }

@@ -6,7 +6,7 @@ import { STATUSES } from "../../constants/constants";
 import { TasksContext } from "../../contexts/tasks/tasks.context";
 import { IStatusDropdownProps } from "../../interfaces/interfaces";
 import { TasksContextType, TaskType } from "../../types/types";
-import { updateStorage } from "../../utils/utils";
+//import { updateStorage } from "../../utils/utils";
 
 export const StatusDropdown: FC<IStatusDropdownProps> = ({ id, status }: IStatusDropdownProps ) => {
   const { tasks, updateStatus, setTasks } = useContext(TasksContext) as TasksContextType;
