@@ -1,3 +1,4 @@
+import { SxProps, Theme } from "@mui/system";
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { TaskType } from "../types/types";
 

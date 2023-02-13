@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
-import { FC, useContext, useState } from "react"
+import { FC, useContext } from "react"
 import { ITaskProps } from "../../interfaces/interfaces"
 import { StatusDropdown } from "../StatusDropdown/StatusDropdown";
 import { TasksContextType } from "../../types/types";
