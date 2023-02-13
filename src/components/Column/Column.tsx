@@ -65,16 +65,26 @@ export const Column = ({ name }: IColumnProps) => {
     <ResponsiveContainer>
       <h3 className="title">{name}</h3>
       <div>
-        { isMorePressed ? filteredTasks : filteredTasks.slice(0, 7) }
+        { isMorePressed ? filteredTasks : filteredTasks.slice(0, 6) }
       </div>
       <Button type="submit" onClick={handleClickOpen} variant="outlined" size="small">
         + Add task
       </Button>
       {
-        filteredTasks.length > 7 && 
-        <Button type="submit" onClick={handleClickMoreTasks} variant="outlined" size="small">
-          { isMorePressed ? 'show less' : 'show all tasks' }
-        </Button>
+        filteredTasks.length > 6 && 
+        <>
+          {
+            isMorePressed ? 
+            (<Button type="submit" onClick={handleClickMoreTasks} variant="contained" size="small">
+              show less
+            </Button>) : 
+            (<Button type="submit" onClick={handleClickMoreTasks} variant="outlined" size="small">
+              show all tasks
+            </Button>)
+          }
+          
+        </>
+        
       }
       <div>
         <ModalAddTask open={open} handleClose={handleClose} 
