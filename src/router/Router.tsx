@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container';
 import { Routes, Route } from 'react-router-dom';
 
-import { AddTask } from './AddTaskPage/AddTaskPage';
+import { AddTaskPage } from './AddTaskPage/AddTaskPage';
 import { Columns } from './Columns/Columns';
 
 
@@ -11,7 +11,7 @@ export const Router = () => {
       <Routes>
         <Route path='/' element={<Columns />}/>
         <Route path='/tasks' element={<Columns />}/>
-        <Route path='/add' element={<AddTask />}/>
+        <Route path='/add' element={<AddTaskPage />}/>
       </Routes>
     </Container>
   )

@@ -1,6 +1,6 @@
 import { SxProps, Theme } from "@mui/system";
 import { Dispatch, ReactNode, SetStateAction } from "react";
-import { TaskType } from "../types/types";
+import { NavbarItemType, TaskType } from "../types/types";
 
 export interface ITaskProps {
   task: TaskType,
@@ -46,4 +46,8 @@ export interface IModalAddTaskProps {
   handleAddTask: () => void,
   setFormInput: Dispatch<React.SetStateAction<TaskType>>,
   formInput: TaskType
+}
+
+export interface INavbarItemProps {
+  item: NavbarItemType
 }

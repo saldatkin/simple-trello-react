@@ -1,4 +1,4 @@
-import { Container, Button, Dialog, DialogContent, DialogTitle } from "@mui/material"
+import { Container, Button } from "@mui/material"
 import { useContext, useState } from "react";
 import { INITIAL_STRINGS } from "../../constants/constants";
 import { TasksContext } from "../../contexts/tasks/tasks.context";
@@ -8,7 +8,7 @@ import { ModalMessage } from "../../components/ModalMessage/ModalMessage";
 
 
 
-export const AddTask = () => {
+export const AddTaskPage = () => {
   const { tasks, addTask, maxId } = useContext(TasksContext) as TasksContextType;
   const initialFormInput: TaskType = { ...INITIAL_STRINGS, id: maxId};
   const [formInput, setFormInput] = useState(initialFormInput); 
