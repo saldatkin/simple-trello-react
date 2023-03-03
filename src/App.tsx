@@ -6,18 +6,19 @@ import {
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import './App.css';
-import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+import { PersistQueryClientProvider, persistQueryClientRestore } from "@tanstack/react-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 
 
 
 function App() {
-  const queryClient2 = new QueryClient({
+  const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
         cacheTime: 1000 * 60 * 60 * 24,
         staleTime: 1000 * 60 * 60 * 24
       },
+      
     },
   })
 
@@ -25,13 +26,20 @@ function App() {
     storage: window.localStorage,
   })
 
-  queryClient2.setQueryData(['tasks'], []);
-  queryClient2.setQueryData(['maxId'], 1);
+  persistQueryClientRestore({
+    queryClient,
+    persister,
+    maxAge: 1000 * 60 * 60 * 24, // 24 hours
+    buster: '',
+  })
 
+  
+  //queryClient.setQueryData(['maxId'], 1);
+  // look at queryCache and https://tkdodo.eu/blog/inside-react-query - set initial value once, and further with value from cache
   
   return (
     <PersistQueryClientProvider
-      client={queryClient2}
+      client={queryClient}
       persistOptions={{ persister }}>
         <Navbar/>
         <Router/>
